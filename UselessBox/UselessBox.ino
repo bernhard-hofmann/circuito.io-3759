@@ -3,21 +3,16 @@
 #include "Button.h"
 
 // Pin Definitions
-#define SERVO360MICRO1_1_PIN_SIG	2
-#define SERVO360MICRO2_2_PIN_SIG	3
-#define TOGGLESWITCH_PIN_2	4
+#define SERVO_1_PIN	2
+#define SERVO_2_PIN	3
+#define TOGGLESWITCH_PIN	4
 
 // Global variables and defines
 
 // object initialization
-Servo servo360Micro1_1;
-Servo servo360Micro2_2;
-Button ToggleSwitch(TOGGLESWITCH_PIN_2);
-
-// define vars for testing menu
-const int timeout = 10000;       //define timeout of 10 sec
-char menuOption = 0;
-long time0;
+Servo servo_1;
+Servo servo_2;
+Button ToggleSwitch(TOGGLESWITCH_PIN);
 
 // Setup the essentials for your circuit to work. It runs first every time your circuit is powered with electricity.
 void setup() 
@@ -29,88 +24,43 @@ void setup()
   Serial.println("start");
 
   ToggleSwitch.init();
-  menuOption = menu();
-
 }
 
 // Main logic of your circuit. It defines the interaction between the components you selected. After setup, it runs over and over again, in an eternal loop.
 void loop() 
 {
-  if(menuOption == '1') {
     // Continuous Rotation Micro Servo - FS90R #1 - Test Code
     // The servo will rotate CW in full speed, CCW in full speed, and will stop  with an interval of 2000 milliseconds (2 seconds) 
-    servo360Micro1_1.attach(SERVO360MICRO1_1_PIN_SIG);         // 1. attach the servo to correct pin to control it.
-    servo360Micro1_1.write(180);  // 2. turns servo CW in full speed. change the value in the brackets (180) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
-    delay(2000);                              // 3. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
-    servo360Micro1_1.write(0);    // 4. turns servo CCW in full speed. change the value in the brackets (0) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
-    delay(2000);                              // 5. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
-    servo360Micro1_1.write(90);    // 6. sending 90 stops the servo 
-    delay(2000);                              // 7. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
-    servo360Micro1_1.detach();                    // 8. release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
-  }
-  else if(menuOption == '2') {
+    servo_1.attach(servo_1_PIN);    // 1. attach the servo to correct pin to control it.
+    servo_1.write(180);             // 2. turns servo CW in full speed. change the value in the brackets (180) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
+    delay(200);                     // 3. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
+    servo_1.write(0);               // 4. turns servo CCW in full speed. change the value in the brackets (0) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
+    delay(200);                     // 5. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
+    servo_1.write(90);              // 6. sending 90 stops the servo 
+    delay(200);                     // 7. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
+    servo_1.detach();               // 8. release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
+
     // Continuous Rotation Micro Servo - FS90R #2 - Test Code
     // The servo will rotate CW in full speed, CCW in full speed, and will stop  with an interval of 2000 milliseconds (2 seconds) 
-    servo360Micro2_2.attach(SERVO360MICRO2_2_PIN_SIG);         // 1. attach the servo to correct pin to control it.
-    servo360Micro2_2.write(180);  // 2. turns servo CW in full speed. change the value in the brackets (180) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
-    delay(2000);                              // 3. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
-    servo360Micro2_2.write(0);    // 4. turns servo CCW in full speed. change the value in the brackets (0) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
-    delay(2000);                              // 5. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
-    servo360Micro2_2.write(90);    // 6. sending 90 stops the servo 
-    delay(2000);                              // 7. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
-    servo360Micro2_2.detach();                    // 8. release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
-  }
-  else if(menuOption == '3') {
-    // ToggleSwitch - Test Code
-    //read Toggle Switch state. 
-    //if Switch is open function will return LOW (0). 
-    //if it is closed function will return HIGH (1).
+    servo_2.attach(servo_2_PIN);    // 1. attach the servo to correct pin to control it.
+    servo_2.write(180);             // 2. turns servo CW in full speed. change the value in the brackets (180) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
+    delay(200);                     // 3. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
+    servo_2.write(0);               // 4. turns servo CCW in full speed. change the value in the brackets (0) to change the speed. As these numbers move closer to 90, the servo will move slower in that direction.
+    delay(200);                     // 5. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
+    servo_2.write(90);              // 6. sending 90 stops the servo 
+    delay(200);                     // 7. waits 2000 milliseconds (2 sec). change the value in the brackets (2000) for a longer or shorter delay in milliseconds.
+    servo_2.detach();               // 8. release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
+
     bool ToggleSwitchVal = ToggleSwitch.read();
     Serial.print(F("Val: ")); 
     Serial.println(ToggleSwitchVal);
   }
-
-  if (millis() - time0 > timeout)
-  {
-    menuOption = menu();
-  }
 }
 
-// Menu function for selecting the components to be tested
-// Follow serial monitor for instrcutions
-char menu()
-{
 
-  Serial.println(F("\nWhich component would you like to test?"));
-  Serial.println(F("(1) Continuous Rotation Micro Servo - FS90R #1"));
-  Serial.println(F("(2) Continuous Rotation Micro Servo - FS90R #2"));
-  Serial.println(F("(3) ToggleSwitch"));
-  Serial.println(F("(menu) send anything else or press on board reset button\n"));
-  while (!Serial.available());
 
-  // Read data from serial monitor if received
-  while (Serial.available()) 
-  {
-    char c = Serial.read();
-    if (isAlphaNumeric(c)) 
-    {   
 
-      if(c == '1') 
-        Serial.println(F("Now Testing Continuous Rotation Micro Servo - FS90R #1"));
-      else if(c == '2') 
-        Serial.println(F("Now Testing Continuous Rotation Micro Servo - FS90R #2"));
-      else if(c == '3') 
-        Serial.println(F("Now Testing ToggleSwitch"));
-      else
-      {
-        Serial.println(F("illegal input!"));
-        return 0;
-      }
-      time0 = millis();
-      return c;
-    }
-  }
-}
+
 
 /*******************************************************
  * 
