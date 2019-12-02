@@ -3,12 +3,13 @@
 #include "Button.h"
 
 // Pin Definitions
-#define SERVO_1_PIN      2
-#define SERVO_2_PIN      3
-#define TOGGLESWITCH_PIN 4
+#define TOGGLESWITCH_PIN 7 // D4
+#define SERVO_1_PIN      6 // D3
+#define SERVO_2_PIN      5 // D2
 
 // Global variables and defines
 #define msDelayForServo1 500 // Controls how long the servo takes to turn as far as needed
+#define msDelayForServo2 800 // Controls how long the servo takes to turn as far as needed
 
 // object initialization
 Servo servo_1;
@@ -35,25 +36,46 @@ void loop()
   Serial.println(ToggleSwitchVal);
 
   if (ToggleSwitchVal) {
-    // 1. attach the servo to correct pin to control it.
-    servo_1.attach(SERVO_1_PIN);
-    // Turns the servo clockwise at full speed.
-    servo_1.write(180);
-    // Wait for a set time to determine how far the motor turns.
-    delay(msDelayForServo1);
-    // Turns the servo counter clockwise at full speed.
-    servo_1.write(0);
-    // Wait for a set time to determine how far the motor turns.
-    delay(msDelayForServo1);
-    // Sending 90 stops the servo 
-    servo_1.write(90);
-    // Release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
-    servo_1.detach();
+    moveServo1();
+    moveServo2();
   }
 }
 
+void moveServo1()
+{
+  // 1. attach the servo to correct pin to control it.
+  servo_1.attach(SERVO_1_PIN);
+  // Turns the servo clockwise at full speed.
+  servo_1.write(180);
+  // Wait for a set time to determine how far the motor turns.
+  delay(msDelayForServo1);
+  // Turns the servo counter clockwise at full speed.
+  servo_1.write(0);
+  // Wait for a set time to determine how far the motor turns.
+  delay(msDelayForServo1);
+  // Sending 90 stops the servo
+  servo_1.write(90);
+  // Release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
+  servo_1.detach();
+}
 
-
+void moveServo2()
+{
+  // 1. attach the servo to correct pin to control it.
+  servo_2.attach(SERVO_2_PIN);
+  // Turns the servo clockwise at full speed.
+  servo_2.write(180);
+  // Wait for a set time to determine how far the motor turns.
+  delay(msDelayForServo2);
+  // Turns the servo counter clockwise at full speed.
+  servo_2.write(0);
+  // Wait for a set time to determine how far the motor turns.
+  delay(msDelayForServo2);
+  // Sending 90 stops the servo
+  servo_2.write(90);
+  // Release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
+  servo_2.detach();
+}
 
 
 
@@ -100,6 +122,7 @@ void loop()
  *    ITS LICENSORS AND AFFILIATES FROM, ANY CLAIMS IN CONNECTION WITH ANY OF 
  *    THE ABOVE. 
  ********************************************************/
+
 
 
 
