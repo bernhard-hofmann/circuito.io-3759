@@ -36,12 +36,13 @@ void loop()
   Serial.println(ToggleSwitchVal);
 
   if (ToggleSwitchVal) {
-    moveServo1();
+    moveServo1Up();
     moveServo2();
+    moveServo1Down();
   }
 }
 
-void moveServo1()
+void moveServo1Up()
 {
   // 1. attach the servo to correct pin to control it.
   servo_1.attach(SERVO_1_PIN);
@@ -49,6 +50,12 @@ void moveServo1()
   servo_1.write(180);
   // Wait for a set time to determine how far the motor turns.
   delay(msDelayForServo1);
+  // Sending 90 stops the servo
+  servo_1.write(90);
+}
+
+void moveServo1Down()
+{
   // Turns the servo counter clockwise at full speed.
   servo_1.write(0);
   // Wait for a set time to determine how far the motor turns.
